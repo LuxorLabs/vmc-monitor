@@ -1,0 +1,50 @@
+version: '3.8'
+
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  node-exporter:
+    image: prom/node-exporter:v1.5.0
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - "9100:9100"
+
+  vmagent:
+    container_name: vmagent
+    image: victoriametrics/vmagent:v1.90.0
+    restart: always
+    ports:
+      - 8429:8429
+    volumes:
+      - <DEFINE_ME>:/vmagentdata
+      - ./vmagent.yaml.yml:/etc/prometheus/vmagent.yml
+    command:
+      - "--promscrape.config=/etc/prometheus/vmagent.yml"
+      - "--remoteWrite.url=<DEFINE ME>"
+
+
+
