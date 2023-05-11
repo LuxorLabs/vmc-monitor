@@ -1,16 +1,12 @@
 version: '3.8'
 
-networks:
-  monitoring:
-    driver: bridge
-
 services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
     container_name: cadvisor
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -38,13 +34,12 @@ services:
     image: victoriametrics/vmagent:v1.90.0
     restart: always
     ports:
-      - 8429:8429
+      - "8429:8429"
     volumes:
-      - <DEFINE_ME>:/vmagentdata
-      - ./vmagent.yaml.yml:/etc/prometheus/vmagent.yml
+      - ./vmagentdata:/vmagentdata
+      - ./vmagent.yaml:/etc/prometheus/vmagent.yaml
     command:
-      - "--promscrape.config=/etc/prometheus/vmagent.yml"
-      - "--remoteWrite.url=<DEFINE ME>"
-
-
-
+      - "--promscrape.config=/etc/prometheus/vmagent.yaml"
+      - "--remoteWrite.url=<DEFINE_ME>"
+      - '--remoteWrite.basicAuth.password="<DEFINE_ME>"'
+      - '--remoteWrite.basicAuth.username="<DEFINE_ME>"'
