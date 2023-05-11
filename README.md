@@ -6,7 +6,7 @@ Scrape basic metrics from a VM and containers running in it for monitoring
 ```yaml
       - "--remoteWrite.url=<DEFINE_ME>"
       - '--remoteWrite.basicAuth.password="<DEFINE_ME>"'
-      - '--remoteWrite.basicAuth.username="<DEFINE_ME"'
+      - '--remoteWrite.basicAuth.username="<DEFINE_ME>"'
 ```
 
 ### `vmagent.yaml
