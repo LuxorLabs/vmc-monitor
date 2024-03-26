@@ -13,7 +13,7 @@ Scrape basic metrics from a VM and containers running in it for monitoring
 
 Additionally, pay attention to your volume mount to ensure disk space is available.
 
-### `vmagent.yaml
+### `vmagent.yaml`
 ```yaml
   external_labels: # add labels e.g.
     machine_origin: my-machine
