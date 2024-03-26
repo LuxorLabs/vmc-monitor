@@ -3,7 +3,7 @@ Scrape basic metrics from a VM and containers running in it for monitoring
 
 ## Update the following if you are using VictoriaMetrics
 
-### `docker-compose.yaml
+### `docker-compose.yaml`
 ```yaml
       - '--remoteWrite.url="<DEFINE_ME>"'
       - '--remoteWrite.basicAuth.password="<DEFINE_ME>"'
