@@ -43,3 +43,11 @@ services:
       - "--remoteWrite.url=<DEFINE_ME>"
       - '--remoteWrite.basicAuth.password="<DEFINE_ME>"'
       - '--remoteWrite.basicAuth.username="<DEFINE_ME>"'
+
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:2.9.6
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail-config.yml:/etc/promtail/promtail-config.yml
+    command: -config.file=/etc/promtail/promtail-config.yml
