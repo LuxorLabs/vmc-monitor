@@ -19,3 +19,16 @@ Additionally, pay attention to your volume mount to ensure disk space is availab
     machine_origin: my-machine
     foo: bar
 ```
+
+### `promtail-config.yaml`
+```yaml
+clients:
+  - url: http://<CHANGE_ME>/loki/api/v1/push
+    tenant_id: 1 # change me
+    external_labels:
+      foo: bar
+    basic_auth:
+      # The username to use for basic auth
+      username: "CHANGE_ME"
+      password: "CHANGE_ME"
+```
