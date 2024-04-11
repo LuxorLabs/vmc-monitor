@@ -5,6 +5,7 @@ services:
     image: gcr.io/cadvisor/cadvisor:v0.47.0
     container_name: cadvisor
     restart: unless-stopped
+    privileged: true
     ports:
       - "8080:8080"
     volumes:
@@ -12,6 +13,12 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    cap_add:
+      - SYS_ADMIN
+
 
   node-exporter:
     image: prom/node-exporter:v1.5.0
